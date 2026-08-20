@@ -2,7 +2,7 @@ name: Stats du profil
 
 on:
   schedule:
-    - cron: "17 6 * * *"
+    - cron: "0 4 * * *"  # 06h00 heure française l'été, 05h00 l'hiver
   workflow_dispatch:
 
 permissions:

@@ -29,7 +29,8 @@ Les quatre chiffres vivent dans `stats.json`, relu par `generate.py` à chaque
 rendu. Les valeurs figées dans le dict `STATS` ne servent que de repli si le
 fichier manque.
 
-`.github/workflows/stats.yml` les rafraîchit chaque jour à 6h17 UTC, régénère
+`.github/workflows/stats.yml` les rafraîchit chaque jour à 4h00 UTC, soit 6h00
+heure française l'été et 5h00 l'hiver (le cron GitHub ignore les fuseaux), régénère
 `profile.svg` et ne commit que si quelque chose a bougé. L'auteur du commit est
 `github-actions[bot]`, jamais toi : sinon la ligne « Commits (12 mois) » se
 mettrait à compter ses propres mises à jour.
