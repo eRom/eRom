@@ -103,7 +103,7 @@ def uptime(start, today=None):
 def rows():
     """(kind, *args) : title | sub | section | kv | gap."""
     return [
-        ("title", "romain@erom"),
+        ("title", "Romain Ecarnot"),
         ("sub", "Passeur du Numérique et Architecte du Simple"),
         ("gap",),
         ("section", "Système"),
@@ -117,6 +117,7 @@ def rows():
         ("kv", "Programmation", "TypeScript, Python, Rust", "fg", None),
         ("kv", "Runtimes", "bun, uv", "fg", None),
         ("kv", "Humaines", "Français, Anglais", "fg", None),
+        ("kv", "IA", "Claude, Deepseek, Google, Grok, GLM, Qwen", "fg", None),
         ("gap",),
         ("section", "Contact"),
         ("kv", "Web", "romain-ecarnot.com", "fg", None),
