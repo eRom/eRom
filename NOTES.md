@@ -34,6 +34,26 @@ fichier manque.
 `github-actions[bot]`, jamais toi : sinon la ligne « Commits (12 mois) » se
 mettrait à compter ses propres mises à jour.
 
+### Le workflow exige un PAT
+
+Mesuré le 2026-08-20 sur le run 32349597562 : avec le `GITHUB_TOKEN` du runner,
+qui n'est scopé qu'à ce dépôt, GitHub répond `repos_total: 59` et `contrib: 50`
+au lieu de 131 et 111. Les dépôts privés sont invisibles, et avec eux les dépôts
+privés auxquels tu as contribué. Le workflow lit donc `secrets.PROFILE_PAT` et
+refuse de tourner sans lui.
+
+Deux filets, parce que ce run-là avait publié les chiffres dégradés sans broncher
+(des entiers positifs passent toute validation naïve) :
+
+- le step « Refuser une regression aberrante » annule la publication si une
+  valeur chute de plus de 20 % par rapport au `stats.json` déjà commité ;
+- `load_stats()` dans `generate.py` refuse toute valeur absente, nulle, négative
+  ou non entière, et se replie sur le dict `STATS` si le fichier manque.
+
+Le PAT veut un accès *lecture seule* : fine-grained, « All repositories »,
+permission Metadata en lecture. Le vérifier avant de le poser en secret, la
+bonne réponse contient `repos_total` supérieur à `repos_publics`.
+
 À la main, sans attendre le cron :
 
 ```bash

@@ -16,8 +16,12 @@ jobs:
 
       - name: Relever les chiffres GitHub
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROFILE_PAT }}
         run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::secret PROFILE_PAT absent. Le GITHUB_TOKEN du runner ne voit que les depots publics : repos_total et contrib sortiraient faux."
+            exit 1
+          fi
           gh api graphql -f query='
           {
             user(login: "eRom") {
@@ -32,8 +36,24 @@ jobs:
             contrib: .repositoriesContributedTo.totalCount,
             commits_12m: .contributionsCollection.totalCommitContributions
           }' > stats.json.tmp
-          mv stats.json.tmp stats.json
-          cat stats.json
+          cat stats.json.tmp
+
+      - name: Refuser une regression aberrante
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          avant = json.loads(Path("stats.json").read_text(encoding="utf-8"))
+          apres = json.loads(Path("stats.json.tmp").read_text(encoding="utf-8"))
+          for cle, ancien in avant.items():
+              neuf = apres.get(cle)
+              if not isinstance(neuf, int) or neuf <= 0:
+                  sys.exit("::error::%s : valeur inexploitable (%r)" % (cle, neuf))
+              if neuf < ancien * 0.8:
+                  sys.exit("::error::%s : chute de %d a %d, publication annulee" % (cle, ancien, neuf))
+          Path("stats.json").write_text(Path("stats.json.tmp").read_text(encoding="utf-8"), encoding="utf-8")
+          Path("stats.json.tmp").unlink()
+          PY
 
       - name: Regenerer le SVG
         run: python3 generate.py
