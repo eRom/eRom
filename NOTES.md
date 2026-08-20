@@ -50,9 +50,15 @@ Deux filets, parce que ce run-là avait publié les chiffres dégradés sans bro
 - `load_stats()` dans `generate.py` refuse toute valeur absente, nulle, négative
   ou non entière, et se replie sur le dict `STATS` si le fichier manque.
 
-Le PAT veut un accès *lecture seule* : fine-grained, « All repositories »,
-permission Metadata en lecture. Le vérifier avant de le poser en secret, la
-bonne réponse contient `repos_total` supérieur à `repos_publics`.
+Le PAT (`erom-profile-stats`, secret `PROFILE_PAT`, expire le 20 août 2027)
+veut un accès *lecture seule* : fine-grained, **All repositories**, et la
+permission **Metadata en Read-only ajoutée à la main**. Les deux sont
+nécessaires : cocher « All repositories » en laissant le bloc Permissions à
+zéro donne un token qui s'authentifie bien en ton nom, remonte `contrib: 111`,
+mais ne voit aucun dépôt privé et répond `repos_total: 59` (run 32350776737).
+GitHub ne rend Metadata obligatoire que dès qu'une autre permission dépôt est
+demandée ; seule, elle doit être ajoutée explicitement. Signature d'un PAT mal
+réglé : `repos_total` égal à `repos_publics`.
 
 À la main, sans attendre le cron :
 
