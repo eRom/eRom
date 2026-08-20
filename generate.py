@@ -76,13 +76,37 @@ LEVELS = {"░": 0.18, "▒": 0.45, "▓": 0.78, "█": 1.0}
 
 # ---------------------------------------------------------------- donnees
 
+# Valeurs de repli : stats.json, ecrit par la GitHub Action, l'emporte s'il existe.
 STATS = {
-    "repos": "130",
-    "commits": "3 262",
-    "contrib": "111",
-    "since": "30 octobre 2009",
+    "repos_publics": 59,
+    "repos_total": 131,
+    "contrib": 111,
+    "commits_12m": 3265,
 }
 JOINED = date(2009, 10, 30)
+STATS_FILE = ROOT / "stats.json"
+MOIS = ("janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+        "août", "septembre", "octobre", "novembre", "décembre")
+
+
+def load_stats():
+    if not STATS_FILE.exists():
+        return STATS
+    data = json.loads(STATS_FILE.read_text(encoding="utf-8"))
+    vals = {k: data.get(k) for k in STATS}
+    bad = sorted(k for k, v in vals.items() if not isinstance(v, int) or v <= 0)
+    if bad:
+        raise SystemExit("stats.json : valeur absente ou aberrante pour " + ", ".join(bad))
+    return vals
+
+
+def num(n):
+    """3265 -> '3 265'. Espace simple : le SVG force white-space:pre."""
+    return f"{n:,}".replace(",", " ")
+
+
+def date_fr(d):
+    return "%d %s %d" % (d.day, MOIS[d.month - 1], d.year)
 
 
 def uptime(start, today=None):
@@ -102,6 +126,7 @@ def uptime(start, today=None):
 
 def rows():
     """(kind, *args) : title | sub | section | kv | gap."""
+    s = load_stats()
     return [
         ("title", "Romain Ecarnot"),
         ("sub", "Passeur du Numérique et Architecte du Simple"),
@@ -125,9 +150,10 @@ def rows():
         ("kv", "GitHub", "@eRom", "fg", None),
         ("gap",),
         ("section", "Stats"),
-        ("kv", "Dépôts publics", STATS["repos"] + "  { contribués : " + STATS["contrib"] + " }", "fg", "repo_data"),
-        ("kv", "Commits (12 mois)", STATS["commits"], "fg", "commit_data"),
-        ("kv", "Membre depuis", STATS["since"], "fg", None),
+        ("kv", "Dépôts publics", "%s  { total : %s }" % (num(s["repos_publics"]), num(s["repos_total"])), "fg", "repo_data"),
+        ("kv", "Dépôts contribués", num(s["contrib"]), "fg", "contrib_data"),
+        ("kv", "Commits (12 mois)", num(s["commits_12m"]), "fg", "commit_data"),
+        ("kv", "Membre depuis", date_fr(JOINED), "fg", None),
     ]
 
 

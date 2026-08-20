@@ -25,31 +25,52 @@ thèmes GitHub, comme un terminal.
 
 ## Stats
 
-Figées à la main dans le dict `STATS` (generate.py).
+Les quatre chiffres vivent dans `stats.json`, relu par `generate.py` à chaque
+rendu. Les valeurs figées dans le dict `STATS` ne servent que de repli si le
+fichier manque.
 
-### Récupérer les chiffres à jour
+`.github/workflows/stats.yml` les rafraîchit chaque jour à 6h17 UTC, régénère
+`profile.svg` et ne commit que si quelque chose a bougé. L'auteur du commit est
+`github-actions[bot]`, jamais toi : sinon la ligne « Commits (12 mois) » se
+mettrait à compter ses propres mises à jour.
 
-Les trois valeurs du bloc STATS en une commande (gh CLI authentifié requis) :
+À la main, sans attendre le cron :
 
 ```bash
-gh api graphql -f query='{
-  viewer {
-    repositories(privacy: PUBLIC, ownerAffiliations: OWNER) { totalCount }
+gh workflow run stats.yml && sleep 20 && gh run list --workflow stats.yml --limit 1
+```
+
+En local, la même requête que celle du workflow écrit le fichier directement :
+
+```bash
+gh api graphql -f query='
+{
+  user(login: "eRom") {
+    pub: repositories(privacy: PUBLIC, ownerAffiliations: OWNER) { totalCount }
+    tous: repositories(ownerAffiliations: OWNER) { totalCount }
     contributionsCollection { totalCommitContributions }
     repositoriesContributedTo(includeUserRepositories: true, contributionTypes: [COMMIT]) { totalCount }
   }
-}' --jq '.data.viewer | "depots=\(.repositories.totalCount)  commits12m=\(.contributionsCollection.totalCommitContributions)  contribues=\(.repositoriesContributedTo.totalCount)"'
+}' --jq '.data.user | {
+  repos_publics: .pub.totalCount,
+  repos_total: .tous.totalCount,
+  contrib: .repositoriesContributedTo.totalCount,
+  commits_12m: .contributionsCollection.totalCommitContributions
+}' > stats.json && python3 generate.py
 ```
 
 `contributionsCollection` sans argument couvre glissant les **12 derniers mois** :
-c'est exactement la ligne « Commits (12 mois) ». Reporter les trois valeurs dans
-`STATS`, puis `python3 generate.py`.
+c'est exactement la ligne « Commits (12 mois) ». `Membre depuis` et l'uptime se
+calculent seuls depuis la constante `JOINED`, rien à toucher.
 
-Le champ `since` (« Membre depuis ») et l'uptime se calculent seuls depuis la
-constante `JOINED`, rien à toucher.
+### Pourquoi on régénère au lieu de patcher le SVG
 
-### Plus tard, en automatique
-
-Les valeurs dynamiques portent déjà un `id` SVG (`uptime_data`, `repo_data`,
-`commit_data`) : une GitHub Action pourra les réécrire sans toucher au reste du
-fichier.
+Les valeurs portent un `id` (`uptime_data`, `repo_data`, `contrib_data`,
+`commit_data`), mais les remplacer en place casserait l'alignement : les points
+de conduite vivent dans un `<tspan>` voisin sans `id`, et leur nombre dérive de
+la longueur de la valeur (`fill = COLS - len(key) - len(val) - 4`). Chaque ligne
+du panneau fait exactement 55 caractères, c'est ce qui aligne les valeurs à
+droite. Or la chaîne d'uptime mesure 23, 24 ou 25 caractères selon la date
+(`17 ans, 0 mois, 0 jours` contre `16 ans, 10 mois, 10 jours`) : un patch
+ciblé décalerait cette ligne de 8 à 16 px. Régénérer tout le fichier coûte
+moins cher que de dupliquer le calcul de layout hors du générateur.
