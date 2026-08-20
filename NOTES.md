@@ -5,8 +5,7 @@
 ## Régénérer
 
 ```bash
-python3 generate.py            # style neutre (défaut, celui en prod)
-python3 generate.py amber -amber   # variante amber, pour comparer
+python3 generate.py
 ```
 
 ## Comment ça marche
