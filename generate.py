@@ -78,7 +78,8 @@ LEVELS = {"░": 0.18, "▒": 0.45, "▓": 0.78, "█": 1.0}
 
 STATS = {
     "repos": "130",
-    "commits": "3 257",
+    "commits": "3 262",
+    "contrib": "111",
     "since": "30 octobre 2009",
 }
 JOINED = date(2009, 10, 30)
@@ -124,7 +125,7 @@ def rows():
         ("kv", "GitHub", "@eRom", "fg", None),
         ("gap",),
         ("section", "Stats"),
-        ("kv", "Dépôts", STATS["repos"], "fg", "repo_data"),
+        ("kv", "Dépôts publics", STATS["repos"] + "  { contribués : " + STATS["contrib"] + " }", "fg", "repo_data"),
         ("kv", "Commits (12 mois)", STATS["commits"], "fg", "commit_data"),
         ("kv", "Membre depuis", STATS["since"], "fg", None),
     ]
