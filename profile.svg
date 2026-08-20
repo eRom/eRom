@@ -432,7 +432,7 @@
 <text x="455.64" y="394"><tspan class="k">GitHub :</tspan><tspan class="d"> ........................................ </tspan><tspan class="v">@eRom</tspan></text>
 <text x="455.64" y="424" class="s" font-size="10.4px" font-weight="700" letter-spacing="1.2">STATS</text>
 <line x1="502.02" y1="420.36" x2="884.64" y2="420.36" stroke="#2b2826" stroke-width="1"/>
-<text x="455.64" y="444"><tspan class="k">Dépôts publics :</tspan><tspan class="d"> ............. </tspan><tspan class="v" id="repo_data">59  { contribués : 110 }</tspan></text>
+<text x="455.64" y="444"><tspan class="k">Dépôts :</tspan><tspan class="d"> .......................................... </tspan><tspan class="v" id="repo_data">130</tspan></text>
 <text x="455.64" y="464"><tspan class="k">Commits (12 mois) :</tspan><tspan class="d"> ............................. </tspan><tspan class="v" id="commit_data">3 257</tspan></text>
 <text x="455.64" y="484"><tspan class="k">Membre depuis :</tspan><tspan class="d"> ....................... </tspan><tspan class="v">30 octobre 2009</tspan></text>
 </svg>

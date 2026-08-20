@@ -25,6 +25,31 @@ thèmes GitHub, comme un terminal.
 
 ## Stats
 
-Figées à la main dans `STATS` (generate.py). Les valeurs dynamiques portent déjà
-un `id` SVG (`uptime_data`, `repo_data`, `commit_data`) : une GitHub Action pourra
-les réécrire plus tard sans toucher au reste du fichier.
+Figées à la main dans le dict `STATS` (generate.py).
+
+### Récupérer les chiffres à jour
+
+Les trois valeurs du bloc STATS en une commande (gh CLI authentifié requis) :
+
+```bash
+gh api graphql -f query='{
+  viewer {
+    repositories(privacy: PUBLIC, ownerAffiliations: OWNER) { totalCount }
+    contributionsCollection { totalCommitContributions }
+    repositoriesContributedTo(includeUserRepositories: true, contributionTypes: [COMMIT]) { totalCount }
+  }
+}' --jq '.data.viewer | "depots=\(.repositories.totalCount)  commits12m=\(.contributionsCollection.totalCommitContributions)  contribues=\(.repositoriesContributedTo.totalCount)"'
+```
+
+`contributionsCollection` sans argument couvre glissant les **12 derniers mois** :
+c'est exactement la ligne « Commits (12 mois) ». Reporter les trois valeurs dans
+`STATS`, puis `python3 generate.py`.
+
+Le champ `since` (« Membre depuis ») et l'uptime se calculent seuls depuis la
+constante `JOINED`, rien à toucher.
+
+### Plus tard, en automatique
+
+Les valeurs dynamiques portent déjà un `id` SVG (`uptime_data`, `repo_data`,
+`commit_data`) : une GitHub Action pourra les réécrire sans toucher au reste du
+fichier.

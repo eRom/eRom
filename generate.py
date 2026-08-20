@@ -77,8 +77,7 @@ LEVELS = {"░": 0.18, "▒": 0.45, "▓": 0.78, "█": 1.0}
 # ---------------------------------------------------------------- donnees
 
 STATS = {
-    "repos": "59",
-    "contrib": "110",
+    "repos": "130",
     "commits": "3 257",
     "since": "30 octobre 2009",
 }
@@ -125,7 +124,7 @@ def rows():
         ("kv", "GitHub", "@eRom", "fg", None),
         ("gap",),
         ("section", "Stats"),
-        ("kv", "Dépôts publics", STATS["repos"] + "  { contribués : " + STATS["contrib"] + " }", "fg", "repo_data"),
+        ("kv", "Dépôts", STATS["repos"], "fg", "repo_data"),
         ("kv", "Commits (12 mois)", STATS["commits"], "fg", "commit_data"),
         ("kv", "Membre depuis", STATS["since"], "fg", None),
     ]
