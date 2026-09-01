@@ -415,7 +415,7 @@
 <text x="455.64" y="94" class="s" font-size="10.4px" font-weight="700" letter-spacing="1.2">SYSTÈME</text>
 <line x1="514.81" y1="90.36" x2="884.64" y2="90.36" stroke="#2b2826" stroke-width="1"/>
 <text x="455.64" y="114"><tspan class="k">OS :</tspan><tspan class="d"> .............................. </tspan><tspan class="v">macOS (Darwin 25.5)</tspan></text>
-<text x="455.64" y="134"><tspan class="k">Uptime :</tspan><tspan class="d"> ..................... </tspan><tspan class="v" id="uptime_data">16 ans, 10 mois, 1 jours</tspan></text>
+<text x="455.64" y="134"><tspan class="k">Uptime :</tspan><tspan class="d"> ..................... </tspan><tspan class="v" id="uptime_data">16 ans, 10 mois, 2 jours</tspan></text>
 <text x="455.64" y="154"><tspan class="k">Host :</tspan><tspan class="d"> ................................. </tspan><tspan class="v">Nantes, France</tspan></text>
 <text x="455.64" y="174"><tspan class="k">Shell :</tspan><tspan class="d"> ............................. </tspan><tspan class="v">zsh + Claude Code</tspan></text>
 <text x="455.64" y="194"><tspan class="k">Statut :</tspan><tspan class="d"> ................................... </tspan><tspan class="ok">Disponible</tspan></text>
