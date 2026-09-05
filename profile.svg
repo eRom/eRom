@@ -415,7 +415,7 @@
 <text x="455.64" y="94" class="s" font-size="10.4px" font-weight="700" letter-spacing="1.2">SYSTÈME</text>
 <line x1="514.81" y1="90.36" x2="884.64" y2="90.36" stroke="#2b2826" stroke-width="1"/>
 <text x="455.64" y="114"><tspan class="k">OS :</tspan><tspan class="d"> .............................. </tspan><tspan class="v">macOS (Darwin 25.5)</tspan></text>
-<text x="455.64" y="134"><tspan class="k">Uptime :</tspan><tspan class="d"> ..................... </tspan><tspan class="v" id="uptime_data">16 ans, 10 mois, 5 jours</tspan></text>
+<text x="455.64" y="134"><tspan class="k">Uptime :</tspan><tspan class="d"> ..................... </tspan><tspan class="v" id="uptime_data">16 ans, 10 mois, 6 jours</tspan></text>
 <text x="455.64" y="154"><tspan class="k">Host :</tspan><tspan class="d"> ................................. </tspan><tspan class="v">Nantes, France</tspan></text>
 <text x="455.64" y="174"><tspan class="k">Shell :</tspan><tspan class="d"> ............................. </tspan><tspan class="v">zsh + Claude Code</tspan></text>
 <text x="455.64" y="194"><tspan class="k">Statut :</tspan><tspan class="d"> ................................... </tspan><tspan class="ok">Disponible</tspan></text>
@@ -432,8 +432,8 @@
 <text x="455.64" y="394"><tspan class="k">GitHub :</tspan><tspan class="d"> ........................................ </tspan><tspan class="v">@eRom</tspan></text>
 <text x="455.64" y="424" class="s" font-size="10.4px" font-weight="700" letter-spacing="1.2">STATS</text>
 <line x1="502.02" y1="420.36" x2="884.64" y2="420.36" stroke="#2b2826" stroke-width="1"/>
-<text x="455.64" y="444"><tspan class="k">Dépôts publics :</tspan><tspan class="d"> .................. </tspan><tspan class="v" id="repo_data">61  { total : 136 }</tspan></text>
-<text x="455.64" y="464"><tspan class="k">Dépôts contribués :</tspan><tspan class="d"> ............................... </tspan><tspan class="v" id="contrib_data">113</tspan></text>
-<text x="455.64" y="484"><tspan class="k">Commits (12 mois) :</tspan><tspan class="d"> ............................. </tspan><tspan class="v" id="commit_data">3 550</tspan></text>
+<text x="455.64" y="444"><tspan class="k">Dépôts publics :</tspan><tspan class="d"> .................. </tspan><tspan class="v" id="repo_data">61  { total : 137 }</tspan></text>
+<text x="455.64" y="464"><tspan class="k">Dépôts contribués :</tspan><tspan class="d"> ............................... </tspan><tspan class="v" id="contrib_data">114</tspan></text>
+<text x="455.64" y="484"><tspan class="k">Commits (12 mois) :</tspan><tspan class="d"> ............................. </tspan><tspan class="v" id="commit_data">3 553</tspan></text>
 <text x="455.64" y="504"><tspan class="k">Membre depuis :</tspan><tspan class="d"> ....................... </tspan><tspan class="v">30 octobre 2009</tspan></text>
 </svg>
